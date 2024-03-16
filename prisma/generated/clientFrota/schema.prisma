@@ -1,0 +1,80 @@
+generator client {
+  provider        = "prisma-client-js"
+  output          = "./generated/clientFrota"
+  previewFeatures = ["multiSchema"]
+}
+
+datasource db {
+  provider = "sqlserver"
+  url      = env("DATABASE_URL")
+}
+
+model FRO_ABASTECIMENTO {
+  ABA_SEQ     Int       @id(map: "PK_FRO_ABASTECIMENTO") @default(autoincrement())
+  ABA_VEI_SEQ Int?
+  ABA_VALOR   Float?    @db.Money
+  ABA_DATA    DateTime? @db.DateTime
+  USER_NAME   String?   @db.VarChar(20)
+  MAQ_NAME    String?   @db.VarChar(20)
+  DATA_HORA   DateTime? @db.DateTime
+}
+
+model FRO_DOCUMENTO {
+  DOC_SEQ      Int       @id(map: "PK_FRO_DOCUMENTO") @default(autoincrement())
+  DOC_VEI_SEQ  Int
+  DOC_TIPO     Int?
+  DOC_NUMERO   String?   @db.VarChar(255)
+  DOC_VALIDADE DateTime? @db.DateTime
+  DOC_VALOR    Float?    @db.Money
+  USER_NAME    String?   @db.VarChar(20)
+  MAQ_NAME     String?   @db.VarChar(20)
+  DATA_HORA    DateTime? @db.DateTime
+}
+
+model FRO_MANUTENCAO {
+  MAN_SEQ     Int       @id(map: "PK_FRO_MANUTENCAO") @default(autoincrement())
+  MAN_VEI_SEQ Int
+  MAN_DATA    DateTime? @db.DateTime
+  MAN_DEFEITO String?   @db.VarChar(255)
+  MAN_SOLUCAO String?   @db.VarChar(255)
+  MAN_VALOR   Float?    @db.Money
+  USER_NAME   String?   @db.VarChar(20)
+  MAQ_NAME    String?   @db.VarChar(20)
+  DATA_HORA   DateTime? @db.DateTime
+}
+
+model FRO_OCORRENCIA {
+  OCO_SEQ       Int       @id(map: "PK_FRO_OCORRENCIA") @default(autoincrement())
+  OCO_VEI_SEQ   Int
+  OCO_DATA      DateTime? @db.DateTime
+  OCO_DESCRICAO String?   @db.VarChar(255)
+  OCO_SOLUCAO   String?   @db.VarChar(255)
+  USER_NAME     String?   @db.VarChar(20)
+  MAQ_NAME      String?   @db.VarChar(20)
+  DATA_HORA     DateTime? @db.DateTime
+}
+
+model FRO_SERVICO {
+  SER_SEQ         Int       @id(map: "PK_FRO_SERVICO") @default(autoincrement())
+  SER_DATA_INICIO DateTime? @db.DateTime
+  SER_DATA_FIM    DateTime? @db.DateTime
+  SER_DESTINO     String?   @db.VarChar(255)
+  SER_MOTIVO      String?   @db.VarChar(255)
+  USER_NAME       String?   @db.VarChar(20)
+  MAQ_NAME        String?   @db.VarChar(20)
+  DATA_HORA       DateTime? @db.DateTime
+}
+
+model FRO_VEICULO {
+  VEI_SEQ      Int       @id(map: "PK_FRO_VEICULO") @default(autoincrement())
+  VEI_PLACA    String?   @db.VarChar(20)
+  VEI_MARCA    String?   @db.VarChar(50)
+  VEI_MODELO   String?   @db.VarChar(50)
+  VEI_COR      String?   @db.VarChar(50)
+  VEI_FOTO     String?   @db.VarChar(255)
+  VEI_DETALHES String?   @db.VarChar(255)
+  VEI_KM       Int?
+  USER_NAME    String?   @db.VarChar(20)
+  MAQ_NAME     String?   @db.VarChar(20)
+  DATA_HORA    DateTime? @db.DateTime
+}

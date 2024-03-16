@@ -1,0 +1,27 @@
+generator client {
+  provider        = "prisma-client-js"
+  previewFeatures = ["multiSchema"]
+    output = "./generated/clientMenu"
+}
+
+datasource db {
+  provider = "sqlserver"
+  url      = env("DATABASE_URL1")
+}
+
+model TAB_002_USUARIO_ACESSO {
+  UserCod        Int       @id(clustered: false, map: "aaaaaTAB_002_USUARIO_ACESSO2_PK")
+  USUARIO        String?   @unique(map: "USUARIO") @db.NVarChar(255)
+  DEPTO          String?   @db.NVarChar(10)
+  SENHA          String?   @db.NVarChar(40)
+  ACESSO         Int?
+  GRUPO          Int?
+  MaqNumberAtual String?   @db.NVarChar(30)
+  MaqUserAtual   String?   @db.NVarChar(30)
+  MaqIP          String?   @db.NVarChar(50)
+  DataUltLog     DateTime? @db.DateTime
+  HoraUltLog     DateTime? @db.DateTime
+  DataHoraDig    DateTime? @default(dbgenerated("sysdatetime()"), map: "DF_TAB_002_USUARIO_ACESSO_DataHoraDig") @db.DateTime
+  ACESS_CLOUD    Boolean?
+  REFRESH_TOKEN  String?   @db.VarChar(100)
+}
